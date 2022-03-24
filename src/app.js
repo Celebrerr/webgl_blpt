@@ -2,8 +2,8 @@ import Canvas from './Canvas/Canvas';
 
 import './style.css';
 
-const canvas = new Canvas(document.querySelector('.webgl'));
-const recordCanvas = document.querySelector('.webgl');
+new Canvas(document.querySelector('.webgl'));
+const canvas = document.querySelector('.webgl');
 
 const activeCapture = false;
 
@@ -33,7 +33,7 @@ const captureFrame = () => {
 
     function render() {
         requestAnimationFrame(render);
-        capturer.capture(recordCanvas);
+        capturer.capture(canvas);
     }
     render();
 };

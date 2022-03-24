@@ -1,5 +1,5 @@
 {
-  "name": "the-genesis",
+  "name": "webgl_blpt",
   "version": "1.0.0",
   "author": "Celebrer",
   "license": "MIT",
@@ -24,7 +24,6 @@
     "html-loader": "^3.0.0",
     "html-webpack-plugin": "^5.5.0",
     "mini-css-extract-plugin": "^2.4.3",
-    "portfinder-sync": "0.0.2",
     "raw-loader": "^4.0.2",
     "rimraf": "^3.0.2",
     "style-loader": "^3.3.1",
