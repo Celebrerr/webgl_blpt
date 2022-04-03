@@ -1,4 +1,4 @@
-import Canvas from './Canvas.js';
+import Canvas from '../Canvas.js';
 
 export default class AudioReact {
     constructor() {

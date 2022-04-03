@@ -10,9 +10,7 @@ export default class Time extends EventEmitter {
         //? Default screen run at 16 FPS so it' better have a delta time (time between each frame in ms)
         this.delta = 16;
 
-        window.requestAnimationFrame(() => {
-            this.tick();
-        });
+        this.tick();
     }
 
     tick() {

@@ -8,7 +8,7 @@ import { lerp } from '../Utils/helpers';
 
 import Canvas from '../Canvas';
 
-export default class Gltf {
+export default class Model {
     constructor() {
         this.element = new Canvas();
 
@@ -27,6 +27,7 @@ export default class Gltf {
         this.settings = {
             material: 'matcap',
             light: true,
+            helpers: false,
         };
 
         this.lerp = {
@@ -50,12 +51,8 @@ export default class Gltf {
 
         if (this.settings.light) this.initLight();
         this.initTexture();
-        this.initGeometry();
 
         switch (this.settings.material) {
-            case 'basic':
-                this.initBasicMaterial();
-                break;
             case 'matcap':
                 this.initMatcapMaterial();
                 break;
@@ -66,11 +63,11 @@ export default class Gltf {
                 this.initShaderMaterial();
                 break;
             default:
-                console.log('OBJ imported material');
+                this.initBasicMaterial();
         }
 
-        // this.initMesh();
         this.init3D();
+        if (this.settings.helpers) this.initHelpers();
         this.addEventListener();
     }
 
@@ -78,12 +75,9 @@ export default class Gltf {
         this.sphere = new THREE.SphereGeometry(0, 16, 10);
 
         this.light = {
-            // colorMid: 0x496242,
-            // colorTl: 0xffa98b,
-            // colorBr: 0xcbe2ac,
-            colorMid: 0x212121,
-            colorTl: 0x212121,
-            colorBr: 0x212121,
+            colorMid: 0xffffff,
+            colorTl: 0xffffff,
+            colorBr: 0xffffff,
         };
 
         this.lightMid = new THREE.PointLight(this.light.colorMid, 1, 50);
@@ -114,10 +108,6 @@ export default class Gltf {
         // this.HDR = new RGBELoader().load('environmentMap/empty_warehouse_01_2k.hdr', () => {
         //     this.HDR.mapping = THREE.EquirectangularReflectionMapping;
         // });
-    }
-
-    initGeometry() {
-        this.geometry = new THREE.IcosahedronBufferGeometry(5, 10);
     }
 
     initBasicMaterial() {
@@ -165,14 +155,6 @@ export default class Gltf {
         });
     }
 
-    initPhongMaterial() {}
-
-    initMesh() {
-        this.mesh = new THREE.Mesh(this.geometry, this.material);
-        this.mesh.position.set(1, 1, 1);
-        this.scene.add(this.mesh);
-    }
-
     init3D() {
         this.gltf = new GLTFLoader().setPath('objects/');
         this.obj;
@@ -197,9 +179,11 @@ export default class Gltf {
                 console.error(error);
             }
         );
+    }
 
-        // this.helper = new THREE.AxesHelper(5, 5);
-        // this.scene.add(this.helper);
+    initHelpers() {
+        this.helper = new THREE.AxesHelper(5, 5);
+        this.scene.add(this.helper);
     }
 
     onMouseMove(event) {
@@ -219,25 +203,18 @@ export default class Gltf {
         }
     }
 
-    update() {
+    update(scroll) {
         const time = this.time.elapsed * 0.0002;
-
-        // const time = Date.now() * 0.0005;
         const delta = this.clock.getDelta();
 
         const a = this.time.elapsed * 0.00009;
         const b = this.time.elapsed * 0.00005;
         const c = this.time.elapsed * 0.00002;
 
-        // this.mesh.rotation.y = this.time.elapsed * 0.0009;
-        // this.mesh.rotation.x = this.time.elapsed * 0.0009;
-
-        this.makeRotation = this.time.elapsed * 0.0005;
-
         if (this.obj) {
             // this.obj.rotation.y += 0.2 * delta;
-            // this.obj.rotation.x = Math.cos(this.makeRotation) * 0.2;
-            // this.obj.rotation.y = Math.sin(this.makeRotation) * 0.2;
+            this.obj.rotation.y = scroll.target * 0.2;
+            // this.obj.rotation.y = Math.sin(time) * 0.2;
         }
 
         if (this.settings.material == 'shader') {

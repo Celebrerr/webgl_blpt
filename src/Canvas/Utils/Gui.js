@@ -26,39 +26,34 @@ export default class Gui {
             pages: [{ title: 'material' }, { title: 'lights' }],
         });
 
-        if (this.model.settings.light) {
-            // this.tab.pages[1].addInput(this.model.lightMid, 'color', {
-            //     picker: 'inline',
-            //     expanded: true,
-            // });
-        }
-
-        if (this.container && this.container.settings.material == 'physical') {
-            this.tab.pages[0].addInput(this.container.material, 'metalness', {
-                min: 0.0,
-                max: 1.0,
-                step: 0.0001,
-            });
-            this.tab.pages[0].addInput(this.container.material, 'roughness', {
-                min: 0.0,
-                max: 1.0,
-                step: 0.0001,
-            });
-            this.tab.pages[0].addInput(this.container.material, 'reflectivity', {
-                min: 0.0,
-                max: 1.0,
-                step: 0.0001,
-            });
-            this.tab.pages[0].addInput(this.container.material, 'transmission', {
-                min: 0.0,
-                max: 1.0,
-                step: 0.0001,
-            });
-            this.tab.pages[0].addInput(this.container.material, 'thickness', {
-                min: 0.0,
-                max: 1.0,
-                step: 0.0001,
-            });
+        if (this.container) {
+            if (this.container.settings.material == 'physical') {
+                this.tab.pages[0].addInput(this.container.material, 'metalness', {
+                    min: 0.0,
+                    max: 1.0,
+                    step: 0.0001,
+                });
+                this.tab.pages[0].addInput(this.container.material, 'roughness', {
+                    min: 0.0,
+                    max: 1.0,
+                    step: 0.0001,
+                });
+                this.tab.pages[0].addInput(this.container.material, 'reflectivity', {
+                    min: 0.0,
+                    max: 1.0,
+                    step: 0.0001,
+                });
+                this.tab.pages[0].addInput(this.container.material, 'transmission', {
+                    min: 0.0,
+                    max: 1.0,
+                    step: 0.0001,
+                });
+                this.tab.pages[0].addInput(this.container.material, 'thickness', {
+                    min: 0.0,
+                    max: 1.0,
+                    step: 0.0001,
+                });
+            }
         }
 
         if (this.model.settings.material == 'shader') {
